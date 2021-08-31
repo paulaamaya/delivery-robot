@@ -1,5 +1,6 @@
 import Robot from './robot.js';
 
+// TO-DO: Update for new edge objects
 class RandomRobot extends Robot{
     
     // TO-DO: Update to inform user of distance travelled

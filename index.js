@@ -1,33 +1,34 @@
+import Edge from "./edge.js";
 import RandomRobot from "./randomRobot.js";
 import OptimizedRobot from "./optimizedRobot.js"
 
 // TO-DO: Include weights
 const roads = [
-    "Alice's House-Bob's House", "Alice's House-Cabin",
-    "Alice's House-Post Office", "Bob's House-Town Hall",
-    "Daria's House-Ernie's House", "Daria's House-Town Hall",
-    "Ernie's House-Grete's House", "Grete's House-Farm",
-    "Grete's House-Shop", "Marketplace-Farm",
-    "Marketplace-Post Office", "Marketplace-Shop",
-    "Marketplace-Town Hall", "Shop-Town Hall"
+    "Alice's House-Bob's House-1", "Alice's House-Cabin-2",
+    "Alice's House-Post Office-3", "Bob's House-Town Hall-4",
+    "Daria's House-Ernie's House-5", "Daria's House-Town Hall-6",
+    "Ernie's House-Grete's House-7", "Grete's House-Farm-8",
+    "Grete's House-Shop-9", "Marketplace-Farm-10",
+    "Marketplace-Post Office-11", "Marketplace-Shop-12",
+    "Marketplace-Town Hall-13", "Shop-Town Hall-14"
     ];
 const townGraph = makeGraph(roads);
 
-// TO-DO: Update makeGraph() to weighted version in search.js
 function makeGraph(roadList){
     let graph = new Object(null);
-
+  
     for(let road of roadList){
         let edge = road.split("-");
         let from = edge[0];
         let to = edge[1];
-
-        graph[from] == null ? graph[from] = [to] : graph[from].push(to);
-        graph[to] == null ? graph[to] = [from] : graph[to].push(from);
+        let weight = edge[2];
+  
+        graph[from] == null ? graph[from] = [new Edge(to, weight)] : graph[from].push(new Edge(to, weight));
+        graph[to] == null ? graph[to] = [new Edge(from, weight)] : graph[to].push(new Edge(from, weight));
     }
-
+  
     return graph;
-}
+  }
 
 let runRobots = (graph, start, parcels) => {
     let randomRobot = new RandomRobot(graph, start, parcels);
@@ -41,8 +42,10 @@ let runRobots = (graph, start, parcels) => {
  * *** TESTING ONLY ***
  */
 
-let parcels = [{address: "Alice's House"}, {address: "Bob's House"}, {address: "Town Hall"}, {address: "Town Hall"}, {address: "Grete's House"}];
+// let parcels = [{address: "Alice's House"}, {address: "Bob's House"}, {address: "Town Hall"}, {address: "Town Hall"}, {address: "Grete's House"}];
 
-runRobots(townGraph, "Post Office", parcels)
+// runRobots(townGraph, "Post Office", parcels)
+
+console.log(townGraph);
 
 
