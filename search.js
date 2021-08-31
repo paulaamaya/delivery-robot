@@ -13,10 +13,16 @@ function dijkstra(graph, start, end){
     
 }
 
-function removeDuplicates(array){
-
-  // TO-DO: Write functions that removes duplicates from given array
-
+function removeDuplicates(edgeList){
+  let m = {};
+  let ans = [];
+  for(let edge of edgeList){
+    if(!m[edge.to]){
+      m[edge.to] = true;
+      ans.push(edge);
+    }
+  }
+  return ans;
 }
 
 function permuteArray(array){
@@ -63,7 +69,9 @@ function makeGraph(roadList){
   return graph;
 }
 
-console.log(testGraph);
+const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}, {to: "Ernie's House"}, {to: "Ernie's House"}];
+
+console.log(removeDuplicates(pseudoEdges));
 
 
 
