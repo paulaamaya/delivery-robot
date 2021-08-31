@@ -1,13 +1,11 @@
 import Robot from './robot.js';
 
-// TO-DO: Update for new edge objects
 class RandomRobot extends Robot{
     
-    // TO-DO: Update to inform user of distance travelled
-    move(destination){
-        if(this.graph[this.place].includes(destination)){
-            console.log(`Moving to ${destination}...`)
-            this.place = destination;
+    move(edge){
+        if(this.graph[this.place].includes(edge)){
+            console.log(`Moving to ${edge.to}...`)
+            this.place = edge.to;
             this.parcels = this.parcels.filter(parcel => parcel.address != this.place);
             return true;
         }
@@ -20,11 +18,12 @@ class RandomRobot extends Robot{
         return this.graph[this.place][x];
     }
 
+    // TO-DO: Update to inform user of distance travelled
     deliver(){
         let count = 0;
         while(!(this.parcels.length == 0) || !(this.place == "Post Office")){
-            let nextStop = this.randomPick();
-            this.move(nextStop);
+            let nextEdge = this.randomPick();
+            this.move(nextEdge);
             // Perhaps we should check if move is valid for completion sake (?)
             count++;
         }

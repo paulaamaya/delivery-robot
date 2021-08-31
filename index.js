@@ -2,7 +2,6 @@ import Edge from "./edge.js";
 import RandomRobot from "./randomRobot.js";
 import OptimizedRobot from "./optimizedRobot.js"
 
-// TO-DO: Include weights
 const roads = [
     "Alice's House-Bob's House-1", "Alice's House-Cabin-2",
     "Alice's House-Post Office-3", "Bob's House-Town Hall-4",
@@ -32,9 +31,9 @@ function makeGraph(roadList){
 
 let runRobots = (graph, start, parcels) => {
     let randomRobot = new RandomRobot(graph, start, parcels);
-    let optimizedRobot = new OptimizedRobot(graph, start, parcels);
+    //let optimizedRobot = new OptimizedRobot(graph, start, parcels);
     randomRobot.deliver();
-    optimizedRobot.deliver();
+    //optimizedRobot.deliver();
 }
 
 
@@ -42,10 +41,6 @@ let runRobots = (graph, start, parcels) => {
  * *** TESTING ONLY ***
  */
 
-// let parcels = [{address: "Alice's House"}, {address: "Bob's House"}, {address: "Town Hall"}, {address: "Town Hall"}, {address: "Grete's House"}];
+let parcels = [{address: "Alice's House"}, {address: "Bob's House"}, {address: "Town Hall"}, {address: "Town Hall"}, {address: "Grete's House"}, {address: "Ernie's House"}, {address: "Daria's House"}];
 
-// runRobots(townGraph, "Post Office", parcels)
-
-console.log(townGraph);
-
-
+runRobots(townGraph, "Post Office", parcels)
