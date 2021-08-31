@@ -26,8 +26,28 @@ function removeDuplicates(edgeList){
 }
 
 function permuteArray(array){
-  
   // TO-DO: Write function that returns a 2D array of all permutations of given array
+  let ans = []
+
+  if(array.length <=1){
+    ans.push(array);
+    return ans;
+  } else {
+    for(let i = 0; i < array.length; i++){
+      
+      // Swap elements
+      [array[0], array[i]] = [array[i], array[0]];
+      
+      let p = [array[0]];
+      let subPermutations = permuteArray(array.slice(1));
+
+      for(let permutation of subPermutations){
+        ans.push(p.concat(permutation));
+      }
+    }
+    return ans;
+  }
+
 }
 
 function findOptimalPath(start, end, stops){
@@ -71,7 +91,8 @@ function makeGraph(roadList){
 
 const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}, {to: "Ernie's House"}, {to: "Ernie's House"}];
 
-console.log(removeDuplicates(pseudoEdges));
+let xs = [0,1, 2]
 
 
+console.log(permuteArray(xs))
 
