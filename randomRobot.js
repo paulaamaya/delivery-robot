@@ -2,14 +2,15 @@ import Robot from './robot.js';
 
 class RandomRobot extends Robot{
     
-    move(destination){
-        if(this.graph[this.place].includes(destination)){
-            console.log(`Moving to ${destination}...`)
-            this.place = destination;
+    move(edge){
+        if(this.graph[this.place].includes(edge)){
+            console.log(`Moving to ${edge.to}...`)
+            this.place = edge.to;
             this.parcels = this.parcels.filter(parcel => parcel.address != this.place);
             return true;
         }
         return false;
+        // This might become a Robot class method (?)
     }
 
     randomPick(){
@@ -19,12 +20,15 @@ class RandomRobot extends Robot{
 
     deliver(){
         let count = 0;
+        let distance = 0;
         while(!(this.parcels.length == 0) || !(this.place == "Post Office")){
-            let nextStop = this.randomPick();
-            this.move(nextStop);
+            let nextEdge = this.randomPick();
+            this.move(nextEdge);
+            // Perhaps we should check if move is valid for completion sake (?)
             count++;
+            distance += nextEdge.weight;
         }
-        console.log(`Delivered all packages in ${count} stops.`)
+        console.log(`Delivered all packages in ${count} stops.\nTotal distance traveled was ${distance}.`)
     }
 }
 
