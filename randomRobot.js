@@ -18,16 +18,17 @@ class RandomRobot extends Robot{
         return this.graph[this.place][x];
     }
 
-    // TO-DO: Update to inform user of distance travelled
     deliver(){
         let count = 0;
+        let distance = 0;
         while(!(this.parcels.length == 0) || !(this.place == "Post Office")){
             let nextEdge = this.randomPick();
             this.move(nextEdge);
             // Perhaps we should check if move is valid for completion sake (?)
             count++;
+            distance += nextEdge.weight;
         }
-        console.log(`Delivered all packages in ${count} stops.`)
+        console.log(`Delivered all packages in ${count} stops.\nTotal distance traveled was ${distance}.`)
     }
 }
 
