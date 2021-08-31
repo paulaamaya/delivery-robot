@@ -2,6 +2,7 @@ import Robot from './robot.js';
 
 class RandomRobot extends Robot{
     
+    // TO-DO: Update to inform user of distance travelled
     move(destination){
         if(this.graph[this.place].includes(destination)){
             console.log(`Moving to ${destination}...`)
@@ -10,6 +11,7 @@ class RandomRobot extends Robot{
             return true;
         }
         return false;
+        // This might become a Robot class method (?)
     }
 
     randomPick(){
@@ -22,6 +24,7 @@ class RandomRobot extends Robot{
         while(!(this.parcels.length == 0) || !(this.place == "Post Office")){
             let nextStop = this.randomPick();
             this.move(nextStop);
+            // Perhaps we should check if move is valid for completion sake (?)
             count++;
         }
         console.log(`Delivered all packages in ${count} stops.`)

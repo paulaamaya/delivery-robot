@@ -24,6 +24,11 @@ function permuteArray(array){
   // TO-DO: Write function that returns a 2D array of all permutations of given array
 }
 
+function findOptimalPath(start, end, stops){
+
+  // TO-DO: Write function that finds the optimal path from <start> to <end> while visiting all the nodes in <stops>
+}
+
 
 /**
  * *** TESTING ONLY ***

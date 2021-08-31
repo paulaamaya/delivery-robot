@@ -1,6 +1,7 @@
 import RandomRobot from "./randomRobot.js";
 import OptimizedRobot from "./optimizedRobot.js"
 
+// TO-DO: Include weights
 const roads = [
     "Alice's House-Bob's House", "Alice's House-Cabin",
     "Alice's House-Post Office", "Bob's House-Town Hall",
@@ -12,6 +13,7 @@ const roads = [
     ];
 const townGraph = makeGraph(roads);
 
+// TO-DO: Update makeGraph() to weighted version in search.js
 function makeGraph(roadList){
     let graph = new Object(null);
 
