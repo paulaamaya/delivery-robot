@@ -21,7 +21,7 @@ class RandomRobot extends Robot{
     deliver(){
         let count = 0;
         let distance = 0;
-        while(!(this.parcels.length == 0) || !(this.place == "Post Office")){
+        while(!(this.parcels.length == 0) || !(this.place == this.start)){
             let nextEdge = this.randomPick();
             this.move(nextEdge);
             // Perhaps we should check if move is valid for completion sake (?)

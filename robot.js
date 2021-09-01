@@ -1,7 +1,8 @@
 class Robot{
-    constructor(graph, place, parcels){
+    constructor(graph, start, parcels){
         this.graph = graph;
-        this.place = place;
+        this.start = start;
+        this.place = start;
         this.parcels = parcels;
     }
 
