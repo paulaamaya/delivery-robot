@@ -10,35 +10,49 @@ function removeItem(list, value) {
 
 function dijkstra(graph, start, end){
   
-    let shortestDistance = {};
-    let previous = {};
-    let unvisited = Object.keys(graph);
+  let shortestDistance = {};
+  let previous = {};
+  let unvisited = Object.keys(graph);
 
-    for(let nodeName in graph){
-        shortestDistance[nodeName] = Infinity;
+  for(let nodeName in graph){
+    shortestDistance[nodeName] = Infinity;
+  }
+  shortestDistance[start] = 0;
+
+  while(unvisited.length > 0){
+    
+    let closestNode = unvisited[0];
+
+    for(let node of unvisited){
+      if(shortestDistance[node] < shortestDistance[closestNode]) closestNode = node;
     }
-    shortestDistance[start] = 0;
 
-    while(unvisited.length > 0){
-      
-      let closestNode = unvisited[0];
+    let neighbours = graph[closestNode];
 
-      for(node of unvisited){
-        if(shortestDistance[node] < shortestDistance[closestNode]) closestNode = node;
+    for(let neighbourEdge of neighbours){
+      let neighbour = neighbourEdge.to;
+      let currDistance = shortestDistance[neighbour];
+      let newDistance = shortestDistance[closestNode] + neighbourEdge.weight;
+
+      if(newDistance < currDistance){
+        shortestDistance[neighbour] = newDistance;
+        previous[neighbour] = closestNode;
       }
-
-      let neighbours = graph[closestNode];
-
-      for(neighbour of neighbours){
-        let currDistance = shortestDistance[neighbour.to];
-        let newDistance = shortestDistance[closestNode] + neighbour.weight;
-
-        if(newDistance < currDistance){
-          shortestDistance[neighbour.to] = newDistance;
-        }
-      }
-      removeItem(unvisited, closestNode);
     }
+    removeItem(unvisited, closestNode);
+  }
+  return getPath(end, previous, shortestDistance[end]);
+}
+
+function getPath(end, map, distance){
+  let ans = [];
+  let node = end;
+  let cost = 0;
+  do{
+    ans.push(node);
+    node = map[node];
+  } while (node !== undefined)
+  return { distance, path: ans.reverse()};
 }
 
 function removeDuplicates(edgeList){
@@ -116,8 +130,8 @@ function makeGraph(roadList){
   return graph;
 }
 
-const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}];
+// const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}];
 
-let l = [1,2,3,4,5]
-removeItem(l, 3);
-console.log(Math.min(...l))
+console.log(dijkstra(testGraph, "g", "k"))
+
+
