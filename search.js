@@ -1,23 +1,51 @@
 import Queue from "./queue.js";
 import Edge from "./edge.js";
 
+function removeItem(list, value) {
+  var index = list.indexOf(value);
+  if (index !== -1) {
+    list.splice(index, 1);
+  }
+}
+
 function dijkstra(graph, start, end){
+  
+    let shortestDistance = {};
+    let previous = {};
+    let unvisited = Object.keys(graph);
 
-    let distances = {};
-    for(key in graph){
-        distances[key] = Infinity;
+    for(let nodeName in graph){
+        shortestDistance[nodeName] = Infinity;
     }
-    distances[start] = 0;
+    shortestDistance[start] = 0;
 
-    // TO-DO: Write Dijkstra's path finding algorithm
-    
+    while(unvisited.length > 0){
+      
+      let closestNode = unvisited[0];
+
+      for(node of unvisited){
+        if(shortestDistance[node] < shortestDistance[closestNode]) closestNode = node;
+      }
+
+      let neighbours = graph[closestNode];
+
+      for(neighbour of neighbours){
+        let currDistance = shortestDistance[neighbour.to];
+        let newDistance = shortestDistance[closestNode] + neighbour.weight;
+
+        if(newDistance < currDistance){
+          shortestDistance[neighbour.to] = newDistance;
+        }
+      }
+      removeItem(unvisited, closestNode);
+    }
 }
 
 function removeDuplicates(edgeList){
   let m = {};
   let ans = [];
   for(let edge of edgeList){
-    if(!m[edge.to]){
+    if(!(edge.to in m)){
       m[edge.to] = true;
       ans.push(edge);
     }
@@ -26,7 +54,7 @@ function removeDuplicates(edgeList){
 }
 
 function permuteArray(array){
-  // TO-DO: Write function that returns a 2D array of all permutations of given array
+
   let ans = []
 
   if(array.length <=1){
@@ -35,7 +63,6 @@ function permuteArray(array){
   } else {
     for(let i = 0; i < array.length; i++){
       
-      // Swap elements
       [array[0], array[i]] = [array[i], array[0]];
       
       let p = [array[0]];
@@ -89,10 +116,8 @@ function makeGraph(roadList){
   return graph;
 }
 
-const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}, {to: "Ernie's House"}, {to: "Ernie's House"}];
+const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}];
 
-let xs = [0,1, 2]
-
-
-console.log(permuteArray(xs))
-
+let l = [1,2,3,4,5]
+removeItem(l, 3);
+console.log(Math.min(...l))
