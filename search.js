@@ -1,23 +1,65 @@
 import Queue from "./queue.js";
 import Edge from "./edge.js";
 
+function removeItem(list, value) {
+  var index = list.indexOf(value);
+  if (index !== -1) {
+    list.splice(index, 1);
+  }
+}
+
 function dijkstra(graph, start, end){
+  
+  let shortestDistance = {};
+  let previous = {};
+  let unvisited = Object.keys(graph);
 
-    let distances = {};
-    for(key in graph){
-        distances[key] = Infinity;
-    }
-    distances[start] = 0;
+  for(let nodeName in graph){
+    shortestDistance[nodeName] = Infinity;
+  }
+  shortestDistance[start] = 0;
 
-    // TO-DO: Write Dijkstra's path finding algorithm
+  while(unvisited.length > 0){
     
+    let closestNode = unvisited[0];
+
+    for(let node of unvisited){
+      if(shortestDistance[node] < shortestDistance[closestNode]) closestNode = node;
+    }
+
+    let neighbours = graph[closestNode];
+
+    for(let neighbourEdge of neighbours){
+      let neighbour = neighbourEdge.to;
+      let currDistance = shortestDistance[neighbour];
+      let newDistance = shortestDistance[closestNode] + neighbourEdge.weight;
+
+      if(newDistance < currDistance){
+        shortestDistance[neighbour] = newDistance;
+        previous[neighbour] = closestNode;
+      }
+    }
+    removeItem(unvisited, closestNode);
+  }
+  return getPath(end, previous, shortestDistance[end]);
+}
+
+function getPath(end, map, distance){
+  let ans = [];
+  let node = end;
+  let cost = 0;
+  do{
+    ans.push(node);
+    node = map[node];
+  } while (node !== undefined)
+  return { distance, path: ans.reverse()};
 }
 
 function removeDuplicates(edgeList){
   let m = {};
   let ans = [];
   for(let edge of edgeList){
-    if(!m[edge.to]){
+    if(!(edge.to in m)){
       m[edge.to] = true;
       ans.push(edge);
     }
@@ -26,8 +68,27 @@ function removeDuplicates(edgeList){
 }
 
 function permuteArray(array){
-  
-  // TO-DO: Write function that returns a 2D array of all permutations of given array
+
+  let ans = []
+
+  if(array.length <=1){
+    ans.push(array);
+    return ans;
+  } else {
+    for(let i = 0; i < array.length; i++){
+      
+      [array[0], array[i]] = [array[i], array[0]];
+      
+      let p = [array[0]];
+      let subPermutations = permuteArray(array.slice(1));
+
+      for(let permutation of subPermutations){
+        ans.push(p.concat(permutation));
+      }
+    }
+    return ans;
+  }
+
 }
 
 function findOptimalPath(start, end, stops){
@@ -69,9 +130,8 @@ function makeGraph(roadList){
   return graph;
 }
 
-const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}, {to: "Ernie's House"}, {to: "Ernie's House"}];
+// const pseudoEdges = [{to: "Alice's House"}, {to: "Bob's House"}, {to: "Town Hall"}, {to: "Town Hall"}, {to: "Grete's House"}];
 
-console.log(removeDuplicates(pseudoEdges));
-
+console.log(dijkstra(testGraph, "g", "k"))
 
 
