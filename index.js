@@ -51,6 +51,6 @@ let runRobots = (graph, start, parcels) => {
  */
 
 // let parcels = [{address: "Grete's House"}, {address: "Alice's House"}, {address: "Bob's House"}, {address: "Town Hall"}, {address: "Daria's House"}, {address: "Ernie's House"}, {address: "Daria's House"}];
-let parcels = [{address: "h"}, {address: "a"}, {address: "b"}, {address: "c"}, {address: "d"}, {address: "e"}, {address: "d"}];
+let parcels = [{address: "h"}, {address: "a"}, {address: "b"}, {address: "d"}, {address: "e"}, {address: "d"}, {address: "b"}, {address: "k"}, {address: "g"}];
 
-runRobots(townGraph, "g", parcels);
+runRobots(townGraph, "j", parcels);
